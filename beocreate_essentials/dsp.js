@@ -16,7 +16,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
 // DSP
-// Communicates with the SigmaTCPServer, available at https://github.com/hifiberry/hifiberry-dsp
+// Communicates with the SigmaTCPServer, available at https://github.com/ausion/ausion-dsp
 
 var net = require("net"); // for communication over TCP
 var fs = require('fs'); // for filesystem access
@@ -31,10 +31,10 @@ const sigmaCommandReadCode = 0x0a;
 const sigmaCommandWriteCode = 0x09;
 const sigmaCommandEEPROMCode = 0xf0;
 
-const hifiberryCommandChecksumCode = 0xf1;
-const hifiberryCommandChecksumResponseCode = 0xf2;
-const hifiberryCommandXMLCode = 0xf4;
-const hifiberryCommandXMLResponseCode = 0xf5;
+const ausionCommandChecksumCode = 0xf1;
+const ausionCommandChecksumResponseCode = 0xf2;
+const ausionCommandXMLCode = 0xf4;
+const ausionCommandXMLResponseCode = 0xf5;
 
 const sigmaCommandHeaderSize = 14;
 const m_FullScaleIntValue = 16777216;
@@ -368,12 +368,12 @@ function onClose(hadError) {
 };
 
 function onData(data) {
-	if (checksumCallback && data[0] == hifiberryCommandChecksumResponseCode) {
+	if (checksumCallback && data[0] == ausionCommandChecksumResponseCode) {
 			checksumCallback(data.slice(14).toString('hex').toUpperCase());
 			checksumCallback = null;
 			
 	} else if (xmlCallback) {
-		if (data[0] == hifiberryCommandXMLResponseCode) {
+		if (data[0] == ausionCommandXMLResponseCode) {
 			dataLength = parseInt(data.slice(6,10).toString("hex"), 16);
 			currentDataLength = 0;
 			data = data.slice(sigmaCommandHeaderSize);
@@ -524,7 +524,7 @@ function safeloadWrite(parameterAddress, values, forceDecimal) {
 }
 
 
-// HIFIBERRY DSPTOOLKIT FUNCTIONS
+// ausion DSPTOOLKIT FUNCTIONS
 
 function flashEEPROM(filePath, callback) {
 	//if (!dspConnected) return false;
@@ -580,7 +580,7 @@ function getChecksum(callback) {
 			}
 		}
 	});*/
-	checksumRequest = Buffer.from(createHifiberryRequest(hifiberryCommandChecksumCode));
+	checksumRequest = Buffer.from(createausionRequest(ausionCommandChecksumCode));
 	if (dspConnected) {
 		dspClient.write(checksumRequest);
 	} else {
@@ -621,7 +621,7 @@ var xmlCallback = null;
 var xmlTimeout = null;
 function getXML(callback) {
 	if (callback) xmlCallback = callback;
-	xmlRequest = Buffer.from(createHifiberryRequest(hifiberryCommandXMLCode));
+	xmlRequest = Buffer.from(createausionRequest(ausionCommandXMLCode));
 	if (dspConnected) {
 		dspClient.write(xmlRequest);
 		xmlTimeout = setTimeout(function() {
@@ -637,11 +637,11 @@ function getXML(callback) {
 
 
 
-// Generic HiFiBerry DSPToolkit request generator function.
-function createHifiberryRequest(commandCode) {
-	var hifiberryRequest = new Uint8Array(sigmaCommandHeaderSize);
-	hifiberryRequest[0] = commandCode;
-	return hifiberryRequest;
+// Generic ausion DSPToolkit request generator function.
+function createausionRequest(commandCode) {
+	var ausionRequest = new Uint8Array(sigmaCommandHeaderSize);
+	ausionRequest[0] = commandCode;
+	return ausionRequest;
 }
 
 

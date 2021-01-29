@@ -64,7 +64,7 @@ beo.bus.on('general', function(event) {
 			getMPDStatus(function(enabled) {
 				sources.setSourceOptions("mpd", {
 					enabled: enabled,
-					usesHifiberryControl: true,
+					usesausionControl: true,
 					transportControls: true,
 					backgroundService: true,
 					childSources: ["radio", "music"],

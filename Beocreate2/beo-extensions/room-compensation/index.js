@@ -15,7 +15,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
-// HIFIBERRYOS ROOM COMPENSATION FOR BEOCREATE 2
+// ausionOS ROOM COMPENSATION FOR BEOCREATE 2
 const spawn = require("child_process").spawn;
 const exec = require("child_process").exec;
 const fs = require("fs");
@@ -197,7 +197,7 @@ function detectMicrophone(stage) {
 			if (debug) console.log("Looking for microphone for room measurements...");
 		}
 		setTimeout(function() {
-			exec("/opt/hifiberry/bin/supported-mics", function(error, stdout, stderr) {
+			exec("/opt/ausion/bin/supported-mics", function(error, stdout, stderr) {
 				if (!error) {
 					if (stderr) {
 						console.error("Microphone detection failed:", stderr);
@@ -239,7 +239,7 @@ function measureLevel(stage) {
 			runLevelMeter = true;
 			levelHistory = [];
 		}
-		exec("/opt/hifiberry/bin/input-level --card=hw:"+microphone.index+",0", function(error, stdout, stderr) {
+		exec("/opt/ausion/bin/input-level --card=hw:"+microphone.index+",0", function(error, stdout, stderr) {
 			if (!error) {
 				if (stdout) {
 					level = microphone.maxSPL+parseFloat(stdout); // The level from stdout is < 0.
@@ -297,7 +297,7 @@ function measureRoom(stage) {
 		measurementPhase = 0;
 		currentSample = -1;
 		setTimeout(function() {
-			roomMeasurementProcess = spawn("/opt/hifiberry/bin/room-measure", ["hw:"+microphone.index+",0", "both", settings.sampleCount.toString()], {cwd: arcDirectory, shell: true});
+			roomMeasurementProcess = spawn("/opt/ausion/bin/room-measure", ["hw:"+microphone.index+",0", "both", settings.sampleCount.toString()], {cwd: arcDirectory, shell: true});
 			
 			roomMeasurementProcess.stdout.on('data', function (data) {
 				data = data.toString();
@@ -631,7 +631,7 @@ function roomEQAPIRequest(endpoint, data, callback) {
 					if (callback) callback(json);
 				});
 			} else {
-				console.error("Could not send or receive data from HiFiBerry room equaliser API: " + res.status, res.statusText);
+				console.error("Could not send or receive data from ausion room equaliser API: " + res.status, res.statusText);
 				if (callback) callback(null, res.statusText);
 			}
 		});
@@ -642,7 +642,7 @@ function roomEQAPIRequest(endpoint, data, callback) {
 					if (callback) callback(json);
 				});
 			} else {
-				console.error("Could not get data from HiFiBerry room equaliser API: " + res.status, res.statusText);
+				console.error("Could not get data from ausion room equaliser API: " + res.status, res.statusText);
 				if (callback) callback(null, res.statusText);
 			}
 		});

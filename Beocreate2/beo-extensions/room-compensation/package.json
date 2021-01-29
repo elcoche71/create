@@ -1,7 +1,7 @@
 {
   "name": "@beocreate/room-compensation",
   "version": "0.7.0",
-  "description": "Room compensation user interface for Beocreate 2 / HiFiBerryOS",
+  "description": "Room compensation user interface for Beocreate 2 / ausionOS",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,7 +17,7 @@
     "bang",
     "olufsen",
     "beocreate",
-    "hifiberry"
+    "ausion"
   ],
   "author": "Bang & Olufsen",
   "license": "MIT"

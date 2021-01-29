@@ -1,7 +1,7 @@
-var hifiberry_audiocontrol = (function() {
+var ausion_audiocontrol = (function() {
 
 
-$(document).on("hifiberry-audiocontrol", function(event, data) {
+$(document).on("ausion-audiocontrol", function(event, data) {
 	
 	
 });

@@ -58,7 +58,7 @@ var fetch = require("node-fetch"); // for sending HTTP requests to the DACP serv
 					sources.setSourceOptions("shairport-sync", {
 						enabled: enabled,
 						transportControls: true,
-						usesHifiberryControl: true,
+						usesausionControl: true,
 						aka: ["ShairportSync"]
 					});
 				});

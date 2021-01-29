@@ -28,7 +28,7 @@ var networkCore = require('../../beocreate_essentials/networking');
 	
 	var defaultSettings = {
 		"wireless": true,
-		"useHifiberryHotspot": true,
+		"useausionHotspot": true,
 		"setupNetworkWhenConnectionLost": false,
 		"testNoEthernet": false
 	};
@@ -448,7 +448,7 @@ var networkCore = require('../../beocreate_essentials/networking');
 				if (beo.systemConfiguration.cardType.indexOf("Beocreate") != -1) {
 					hotspotPrefix = "Beocreate";
 				} else {
-					hotspotPrefix = "HiFiBerry";
+					hotspotPrefix = "ausion";
 				}
 			}
 			if (extensions["product-information"] && extensions["product-information"].getProductInformation) {
@@ -461,7 +461,7 @@ var networkCore = require('../../beocreate_essentials/networking');
 			if (!hotspotName) hotspotName = hotspotPrefix+"_Setup";
 			if (debug) console.log("Network: starting setup hotspot with name: '"+hotspotName+"'...");
 		}
-		if (!settings.useHifiberryHotspot) {
+		if (!settings.useausionHotspot) {
 			if (start) {
 				networkCore.setupNetwork(hotspotName);
 			} else {

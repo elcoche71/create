@@ -11,7 +11,7 @@ var cardType = "";
 var showFullSystemID = false;
 var systemVersion = null;
 var systemVersionReadable = "";
-var hifiberryVersion = null;
+var ausionVersion = null;
 
 var productIdentities = {};
 
@@ -80,10 +80,10 @@ $(document).on("product-information", function(event, data) {
 			cardType = data.content.systemConfiguration.cardType;
 			$(".card-type").text(data.content.systemConfiguration.cardType);
 		}
-		if (data.content.hifiberryVersion) {
-			if (hifiberryVersion != null && hifiberryVersion != data.content.hifiberryVersion) systemUpdated = true;
-			hifiberryVersion = data.content.hifiberryVersion;
-			$(".hifiberry-version").text(hifiberryVersion);
+		if (data.content.ausionVersion) {
+			if (ausionVersion != null && ausionVersion != data.content.ausionVersion) systemUpdated = true;
+			ausionVersion = data.content.ausionVersion;
+			$(".ausion-version").text(ausionVersion);
 		}
 		cycleSystemInformation(true);
 		if (systemUpdated) { // If the system version has changed, reload the page.
@@ -161,11 +161,11 @@ function cycleSystemInformation(updateOnly) {
 		currentSystemInfo++;
 		if (currentSystemInfo > 3) currentSystemInfo = 0;
 	}
-	if (currentSystemInfo == 0 && !hifiberryVersion) currentSystemInfo = 1;
+	if (currentSystemInfo == 0 && !ausionVersion) currentSystemInfo = 1;
 	
 	switch (currentSystemInfo) {
-		case 0: // HiFiBerryOS version ("release")
-			infoText = "Software "+hifiberryVersion;
+		case 0: // ausionOS version ("release")
+			infoText = "Software "+ausionVersion;
 			break;
 		case 1: // Beocreate version
 			infoText = "Beocreate "+systemVersion;
@@ -316,7 +316,7 @@ return {
 	modelID: function() {return modelID},
 	productImage: function() {return productImage},
 	cardType: function() {return cardType},
-	hifiberryVersion: function() {return hifiberryVersion},
+	ausionVersion: function() {return ausionVersion},
 	generateSettingsPreview: generateSettingsPreview,
 	clearPresetPreview: clearPresetPreview,
 	startCustomisation: startCustomisation,

@@ -378,8 +378,8 @@ function loadArtwork(url, port, testExternal) {
 				src = "common/square-helper.png";
 				sourcePlaceholder = true;
 			} else {
-				if ($("body").hasClass("hifiberry-os")) {
-					src = $("#now-playing").attr("data-asset-path")+"/placeholder-hifiberry.png";
+				if ($("body").hasClass("ausion-os")) {
+					src = $("#now-playing").attr("data-asset-path")+"/placeholder-ausion.png";
 				} else {
 					src = $("#now-playing").attr("data-asset-path")+"/placeholder.png";
 				}

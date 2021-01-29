@@ -1,7 +1,7 @@
 {
   "name": "@beocreate/software-update",
   "version": "0.5.0",
-  "description": "HiFiBerryOS software updater for Beocreate systems",
+  "description": "ausionOS software updater for Beocreate systems",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,7 +13,7 @@
   "keywords": [
     "beocreate",
     "update",
-	"hifiberryos",
+	"ausionos",
 	"bang",
 	"olufsen"
   ],

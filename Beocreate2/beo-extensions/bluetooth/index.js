@@ -48,7 +48,7 @@ var fs = require("fs");
 					sources.setSourceOptions("bluetooth", {
 						enabled: enabled,
 						transportControls: true,
-						usesHifiberryControl: true
+						usesausionControl: true
 					});
 				});
 			}

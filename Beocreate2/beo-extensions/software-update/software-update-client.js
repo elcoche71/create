@@ -81,9 +81,9 @@ $(document).on("software-update", function(event, data) {
 			value: newVersion,
 			static: true
 		}
-		if ($("body").hasClass("hifiberry-os")) {
-			menuOptions.label = "HiFiBerryOS";
-			menuOptions.icon = extensions["product-information"].assetPath+"/symbols-black/hifiberry.svg"
+		if ($("body").hasClass("ausion-os")) {
+			menuOptions.label = "ausionOS";
+			menuOptions.icon = extensions["product-information"].assetPath+"/symbols-black/ausion.svg"
 		} else {
 			menuOptions.label = "Beocreate 2";
 			menuOptions.icon = extensions["product-information"].assetPath+"/symbols-black/create.svg"

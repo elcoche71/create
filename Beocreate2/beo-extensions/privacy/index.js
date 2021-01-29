@@ -44,7 +44,7 @@ var fs = require("fs");
 		
 		if (event.header == "startup") {
 			
-			if (beo.extensions["hifiberry-audiocontrol"]) audioControl = beo.extensions["hifiberry-audiocontrol"];
+			if (beo.extensions["ausion-audiocontrol"]) audioControl = beo.extensions["ausion-audiocontrol"];
 			
 			if (!settings.privacyApprovedByUser) {
 				// If privacy settings have not been approved by the user, join setup flow.
@@ -64,7 +64,7 @@ var fs = require("fs");
 								file = "/opt/audiocontrol2/privacy.html";
 								break;
 							case "usageData":
-								file = "/opt/hifiberry/etc/privacy-usagedata.html";
+								file = "/opt/ausion/etc/privacy-usagedata.html";
 								break;
 						}
 						if (file != null) {

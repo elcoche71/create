@@ -191,7 +191,7 @@ $(document).on("room-compensation", function(event, data) {
 				break;
 			case "error":
 				notifyOptions.title = "Measurement error";
-				notifyOptions.message = "Please try again. If the problem persists, contact HiFiBerry support.";
+				notifyOptions.message = "Please try again. If the problem persists, contact ausion support.";
 				notifyOptions.buttonAction = "close";
 				notifyOptions.buttonTitle = "Dismiss";
 				notifyOptions.icon = null;
@@ -285,7 +285,7 @@ $(document).on("room-compensation", function(event, data) {
 			case "error":
 				notifyOptions.title = "Room compensation error";
 				if (data.content.reason == "serverError") {
-					notifyOptions.message = "Failed to get data from room compensation server. Please try again. If the problem persists, contact HiFiBerry support.";
+					notifyOptions.message = "Failed to get data from room compensation server. Please try again. If the problem persists, contact ausion support.";
 				} else {
 					notifyOptions.message = "The selected measurement is missing data.";
 				}

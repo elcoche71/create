@@ -251,7 +251,7 @@ var _ = require('underscore');
 		}
 		
 		if (event.header == "server-notify") {
-			// Called by the HiFiBerry SigmaDSP server.
+			// Called by the ausion SigmaDSP server.
 			console.log("Notification from DSP:", event.content);
 		}
 	});
@@ -261,8 +261,8 @@ var _ = require('underscore');
 		if (event.header == "postSetup") {
 			if (reconfigurePostSetup) {
 				reconfigurePostSetup = false;
-				if (debug) console.log("Running HiFiBerry reconfigure script.");
-				configureProcess = spawn("/opt/hifiberry/bin/reconfigure-players", {detached: true, stdio: "ignore"});
+				if (debug) console.log("Running ausion reconfigure script.");
+				configureProcess = spawn("/opt/ausion/bin/reconfigure-players", {detached: true, stdio: "ignore"});
 				configureProcess.unref();
 			}
 		}
@@ -289,16 +289,16 @@ var _ = require('underscore');
 						
 						if (metadata) {
 							if (!metadataFromDSP && !startup) {
-								// Metadata was not received from DSP at startup, but is now (possibly because this is a fresh setup). This should be used to trigger reconfiguration of sources in HiFiBerryOS.
+								// Metadata was not received from DSP at startup, but is now (possibly because this is a fresh setup). This should be used to trigger reconfiguration of sources in ausionOS.
 								if (beo.setup) {
 									reconfigurePostSetup = true;
 									if (beo.extensions.setup && beo.extensions.setup.requestPostSetup) {
 										beo.extensions.setup.requestPostSetup("dsp-programs");
 									}
 								} else {
-									if (debug) console.log("Running HiFiBerry reconfigure script.");
+									if (debug) console.log("Running ausion reconfigure script.");
 									beo.sendToUI("dsp-programs", {header: "configuringSystem"});
-									configureProcess = spawn("/opt/hifiberry/bin/reconfigure-players", {detached: true, stdio: "ignore"});
+									configureProcess = spawn("/opt/ausion/bin/reconfigure-players", {detached: true, stdio: "ignore"});
 									configureProcess.unref();
 								}
 								

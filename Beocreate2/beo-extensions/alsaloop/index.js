@@ -51,7 +51,7 @@ var exec = require("child_process").exec;
 						enabled: enabled,
 						transportControls: ["play", "stop"],
 						startable: true,
-						usesHifiberryControl: true
+						usesausionControl: true
 					});
 				});
 			}

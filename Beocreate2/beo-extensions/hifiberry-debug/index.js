@@ -15,7 +15,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
-// HIFIBERRY DEBUG INFORMATION COLLECTOR FOR BEOCREATE
+// ausion DEBUG INFORMATION COLLECTOR FOR BEOCREATE
 
 const fetch = require("node-fetch");
 var exec = require("child_process").exec;
@@ -28,7 +28,7 @@ var collecting = false;
 var archive = null;
 var archiveDownloadTimeout;
 
-var hifiberryState = {};
+var ausionState = {};
 var previousExtension = null
 
 beo.bus.on('general', function(event) {
@@ -39,32 +39,32 @@ beo.bus.on('general', function(event) {
 	}
 	
 	if (event.header == "activatedExtension") {
-		if (event.content.extension == "hifiberry-debug") {
+		if (event.content.extension == "ausion-debug") {
 			
 			if (!collecting) {
 				if (archive) {
-					beo.sendToUI("hifiberry-debug", {header: "archive", content: {archiveURL: archive}});
+					beo.sendToUI("ausion-debug", {header: "archive", content: {archiveURL: archive}});
 				} else {
-					beo.sendToUI("hifiberry-debug", {header: "archive"});
+					beo.sendToUI("ausion-debug", {header: "archive"});
 				}
 			} else {
-				beo.sendToUI("hifiberry-debug", {header: "collecting"});
+				beo.sendToUI("ausion-debug", {header: "collecting"});
 			}
 			
 			readState();
-			if (hifiberryState.CURRENT_EXCLUSIVE && hifiberryState.CURRENT_EXCLUSIVE == "1") {
+			if (ausionState.CURRENT_EXCLUSIVE && ausionState.CURRENT_EXCLUSIVE == "1") {
 				exclusiveAudio = true;
 			} else {
 				exclusiveAudio = false;
 			}
 			
-			if (hifiberryState.CURRENT_SAMPLERATE) {
-				resamplingRate = parseFloat(hifiberryState.CURRENT_SAMPLERATE);
+			if (ausionState.CURRENT_SAMPLERATE) {
+				resamplingRate = parseFloat(ausionState.CURRENT_SAMPLERATE);
 			} else {
 				resamplingRate = 0;
 			}
 			
-			beo.sendToUI("hifiberry-debug", {header: "state", content: {exclusiveAudio: exclusiveAudio, resamplingRate: resamplingRate}});
+			beo.sendToUI("ausion-debug", {header: "state", content: {exclusiveAudio: exclusiveAudio, resamplingRate: resamplingRate}});
 		}
 		
 		if (event.content.extension != previousExtension) {
@@ -76,35 +76,35 @@ beo.bus.on('general', function(event) {
 });
 
 
-beo.bus.on('hifiberry-debug', function(event) {
+beo.bus.on('ausion-debug', function(event) {
 	
 	if (event.header == "collect") {
-		beo.sendToUI("hifiberry-debug", {header: "collecting"});
+		beo.sendToUI("ausion-debug", {header: "collecting"});
 		collecting = true;
 		clearTimeout(archiveDownloadTimeout);
-		beo.removeDownloadRoute("hifiberry-debug", "archive.zip");
-		if (debug) console.log("Collecting HiFiBerry diagnostic information...");
-		exec("/opt/hifiberry/bin/debuginfo", function(error, stdout, stderr) {
+		beo.removeDownloadRoute("ausion-debug", "archive.zip");
+		if (debug) console.log("Collecting ausion diagnostic information...");
+		exec("/opt/ausion/bin/debuginfo", function(error, stdout, stderr) {
 			collecting = false;
 			if (!error) {
-				if (fs.existsSync("/tmp/hifiberry-debug.zip")) {
-					archive = beo.addDownloadRoute("hifiberry-debug", "archive.zip", "/tmp/hifiberry-debug.zip", true);
-					beo.sendToUI("hifiberry-debug", {header: "finished"});
-					beo.sendToUI("hifiberry-debug", {header: "archive", content: {archiveURL: archive}});
+				if (fs.existsSync("/tmp/ausion-debug.zip")) {
+					archive = beo.addDownloadRoute("ausion-debug", "archive.zip", "/tmp/ausion-debug.zip", true);
+					beo.sendToUI("ausion-debug", {header: "finished"});
+					beo.sendToUI("ausion-debug", {header: "archive", content: {archiveURL: archive}});
 					archiveDownloadTimeout = setTimeout(function() {
 						// Time out the archive after 5 minutes so that the data is guaranteed to be fairly fresh.
-						beo.sendToUI("hifiberry-debug", {header: "archive"});
-						beo.removeDownloadRoute("hifiberry-debug", "archive.zip");
+						beo.sendToUI("ausion-debug", {header: "archive"});
+						beo.removeDownloadRoute("ausion-debug", "archive.zip");
 						archive = null;
 						if (debug) console.log("Diagnostic information archive has timed out.");
 					}, 300000);
 					if (debug) console.log("Diagnostic information archive is now available to download for 5 minutes.");
 				} else {
-					beo.sendToUI("hifiberry-debug", {header: "error"});
+					beo.sendToUI("ausion-debug", {header: "error"});
 					if (debug) console.log("Unknown error creating diagnostic information archive.");
 				}
 			} else {
-				beo.sendToUI("hifiberry-debug", {header: "error"});
+				beo.sendToUI("ausion-debug", {header: "error"});
 				if (debug) console.log("Error creating diagnostic information archive:", error);
 			}
 		});
@@ -113,24 +113,24 @@ beo.bus.on('hifiberry-debug', function(event) {
 	
 });
 
-hifiberryStateModified = 0;
+ausionStateModified = 0;
 function readState() {
-	if (fs.existsSync("/etc/hifiberry.state")) {
-		modified = fs.statSync("/etc/hifiberry.state").mtimeMs;
-		if (modified != hifiberryStateModified) {
+	if (fs.existsSync("/etc/ausion.state")) {
+		modified = fs.statSync("/etc/ausion.state").mtimeMs;
+		if (modified != ausionStateModified) {
 			// Reads configuration into a JavaScript object for easy access.
-			hifiberryStateModified = modified;
-			state = fs.readFileSync("/etc/hifiberry.state", "utf8").split('\n');
+			ausionStateModified = modified;
+			state = fs.readFileSync("/etc/ausion.state", "utf8").split('\n');
 			for (var i = 0; i < state.length; i++) {
 				
 				line = state[i].trim();
 				lineItems = line.split("=");
 				if (lineItems.length == 2) {
-					hifiberryState[lineItems[0].trim()] = lineItems[1].trim();
+					ausionState[lineItems[0].trim()] = lineItems[1].trim();
 				}
 			}
 		}
-		return hifiberryState;
+		return ausionState;
 	}
 }
 

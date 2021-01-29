@@ -34,7 +34,7 @@ function read_settings() {
 	var child;
 
 	try {
-		stdout = execSync('/opt/hifiberry/bin/speaker-role');
+		stdout = execSync('/opt/ausion/bin/speaker-role');
 		settings = JSON.parse(JSON.stringify(defaultSettings));
 		var res = stdout.toString().split(' ');
 		if ( res.length > 1 ) {
@@ -55,7 +55,7 @@ function write_settings(settings) {
 	var child;
 
 	try {
-		child = execSync('/opt/hifiberry/bin/speaker-role '+settings.role + " "+settings.limit_db)
+		child = execSync('/opt/ausion/bin/speaker-role '+settings.role + " "+settings.limit_db)
 	} catch (error) {
 		console.error("Exception calling speaker-role:", error);
 	}

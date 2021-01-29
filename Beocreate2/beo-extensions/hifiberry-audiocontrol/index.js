@@ -15,7 +15,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
-// HIFIBERRY AUDIOCONTROL INTERACTION FOR BEOCREATE
+// ausion AUDIOCONTROL INTERACTION FOR BEOCREATE
 
 var exec = require("child_process").exec;
 var fs = require("fs");
@@ -36,7 +36,7 @@ beo.bus.on('general', function(event) {
 });
 
 
-beo.bus.on('hifiberry-audiocontrol', function(event) {
+beo.bus.on('ausion-audiocontrol', function(event) {
 	
 	
 	

@@ -1,10 +1,10 @@
-var hifiberry_debug = (function() {
+var ausion_debug = (function() {
 
 var newVersion = null;
 var archiveURL = null;
 
 
-$(document).on("hifiberry-debug", function(event, data) {
+$(document).on("ausion-debug", function(event, data) {
 	
 	if (data.header == "collecting") {
 		$("#diagnostic-collect-button").addClass("disabled");
@@ -53,7 +53,7 @@ $(document).on("hifiberry-debug", function(event, data) {
 
 
 function collect() {
-	beo.send({target: "hifiberry-debug", header: "collect"});
+	beo.send({target: "ausion-debug", header: "collect"});
 }
 
 function download() {

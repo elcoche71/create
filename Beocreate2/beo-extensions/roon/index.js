@@ -43,7 +43,7 @@ var exec = require("child_process").exec;
 						enabled: enabled,
 						aka: ["raat"],
 						transportControls: true,
-						usesHifiberryControl: true
+						usesausionControl: true
 					});
 				});
 			}

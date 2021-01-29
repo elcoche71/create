@@ -8,15 +8,15 @@
 
 ***Beocreate Connect*** is a new companion application (for Mac + Windows) that automatically and instantly discovers all Beocreate 2 sound systems on the network, without typing a single IP address.
 
-Beocreate 2 is bundled with [HiFiBerryOS](https://github.com/hifiberry/hifiberry-os) as its official user interface. On systems that use other HiFiBerry sound cards, the user interface carries HiFiBerry branding.
+Beocreate 2 is bundled with [ausionOS](https://github.com/ausion/ausion-os) as its official user interface. On systems that use other ausion sound cards, the user interface carries ausion branding.
 
 ## Main Features
 
-- A flexible front-end for Beocreate 4-Channel Amplifier and other HiFiBerry sound cards.
+- A flexible front-end for Beocreate 4-Channel Amplifier and other ausion sound cards.
 - Upcycle vintage Bang & Olufsen speakers or build your own, custom sound system.
 - Beautifully crafted, responsive, browser-based user interface that works within the local network. Dark mode is supported.
 - See what's playing, control playback and volume.
-- Supports multiple sources/streaming protocols that can be set up in one place (powered by [HiFiBerry AudioControl](https://github.com/hifiberry/audiocontrol2)).
+- Supports multiple sources/streaming protocols that can be set up in one place (powered by [ausion AudioControl](https://github.com/ausion/audiocontrol2)).
 - Speaker presets designed by Bang & Olufsen acousticians specifically for select loudspeaker models.
 - Quickly customise the sound with Beosonic and listening modes.
 - Parametric equaliser for general sound design and each output channel – ideal for crossovers and tuning custom loudspeakers.
@@ -28,9 +28,9 @@ Beocreate 2 is bundled with [HiFiBerryOS](https://github.com/hifiberry/hifiberry
 
 ### Beocreate 2
 
-As Beocreate 2 is part of HiFiBerryOS, the recommended way is to download the latest image of HiFiBerryOS for your Raspberry Pi generation and write it to a microSD card. [Get HiFiBerryOS](https://www.hifiberry.com/hifiberryos/)
+As Beocreate 2 is part of ausionOS, the recommended way is to download the latest image of ausionOS for your Raspberry Pi generation and write it to a microSD card. [Get ausionOS](https://www.ausion.com/ausionos/)
 
-Alternatively, you can use the Buildroot system to build HiFiBerryOS yourself. [Building HiFiBerryOS](https://github.com/hifiberry/hifiberry-os/blob/master/doc/building.md)
+Alternatively, you can use the Buildroot system to build ausionOS yourself. [Building ausionOS](https://github.com/ausion/ausion-os/blob/master/doc/building.md)
 
 Once installed, you can follow instructions in Beocreate Connect set up the sound system.
 

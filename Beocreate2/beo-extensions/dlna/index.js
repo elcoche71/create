@@ -44,7 +44,7 @@ var fs = require("fs");
 						enabled: enabled,
 						aka: ["upnp"],
 						transportControls: false,
-						usesHifiberryControl: true
+						usesausionControl: true
 					});
 				});
 			}

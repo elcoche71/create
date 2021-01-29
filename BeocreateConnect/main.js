@@ -86,12 +86,12 @@ const template = [
     role: 'help',
     submenu: [
 		{ label: 'Guides && Documentation',
-		click () { shell.openExternal('https://www.hifiberry.com/beocreate/beocreate-doc/') }},
+		click () { shell.openExternal('https://www.ausion.com/beocreate/beocreate-doc/') }},
 		{ type: 'separator' },
 		{ label: 'Visit Bang && Olufsen',
         click () { shell.openExternal('https://www.bang-olufsen.com') }},
-		{ label: 'Visit HiFiBerry',
-		click () { shell.openExternal('https://www.hifiberry.com') }},
+		{ label: 'Visit ausion',
+		click () { shell.openExternal('https://www.ausion.com') }},
 		{ label: 'View Source Code',
 		click () { shell.openExternal('https://github.com/bang-olufsen/create') }},
     ]

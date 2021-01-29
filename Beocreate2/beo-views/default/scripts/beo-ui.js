@@ -30,7 +30,7 @@ beo = (function() {
 uiSettings = {
 	disclosure: {}
 };
-hifiberryOS = false;
+ausionOS = false;
 
 os = getOS();
 
@@ -42,7 +42,7 @@ $( document ).ready(function() {
 	if (("standalone" in window.navigator) && window.navigator.standalone){
 		$("body").addClass("standalone");
 	}
-	if ($("body").hasClass("hifiberry-os")) hifiberryOS = true;
+	if ($("body").hasClass("ausion-os")) ausionOS = true;
 	if (developerMode) $("body").addClass("developer");
 	getWindowDimensions();
 	sendToProductView({header: "isShownInBeoApp"});
@@ -55,7 +55,7 @@ $( document ).ready(function() {
 	
 	$("body").css("opacity", "1");
 	
-	if (hifiberryOS) $('head link[rel="apple-touch-icon"]').attr("href", "views/default/apple-touch-icon-hifiberry.png");
+	if (ausionOS) $('head link[rel="apple-touch-icon"]').attr("href", "views/default/apple-touch-icon-ausion.png");
 	
 	
 	// File selected to upload.
@@ -64,10 +64,10 @@ $( document ).ready(function() {
 	});
 	
 	// Preload animated wait icons:
-	if (!hifiberryOS) {
+	if (!ausionOS) {
 		attentionIcon.src = "common/create-wait-animate.svg";
 	} else {
-		attentionIcon.src = "common/hifiberry-wait-animate.svg";
+		attentionIcon.src = "common/ausion-wait-animate.svg";
 	}
 
 	$(".device").text(os[1]); // Change strings and instructions in the UI to refer to the correct platform.
@@ -222,8 +222,8 @@ function prepareMenus() {
 					// TOP LEVEL MENU
 					
 					iconName = $(this).attr("data-icon");
-					if (hifiberryOS && $(this).attr("data-icon-hifiberry")) {
-						iconName = $(this).attr("data-icon-hifiberry");
+					if (ausionOS && $(this).attr("data-icon-ausion")) {
+						iconName = $(this).attr("data-icon-ausion");
 					}
 					menuOptions = {
 						onclick: 'beo.showExtension(\''+$(this).attr("id")+'\');',
@@ -265,8 +265,8 @@ function prepareMenus() {
 					// SUBMENUS
 					if (!deepMenu) {
 						iconName = $(this).attr("data-icon");
-						if (hifiberryOS && $(this).attr("data-icon-hifiberry")) {
-							iconName = $(this).attr("data-icon-hifiberry");
+						if (ausionOS && $(this).attr("data-icon-ausion")) {
+							iconName = $(this).attr("data-icon-ausion");
 						}
 						menuOptions = {
 							label: $(this).attr("data-menu-title"),
@@ -1258,10 +1258,10 @@ function notify(options, dismissWithID = currentNotificationID) { // Display a s
 		} else if (options.icon == "attention") {
 			if (notificationIcon != "attention") {
 				//icon = "common/symbols-black/wait-star.svg"
-				/*if (!hifiberryOS) {
+				/*if (!ausionOS) {
 					icon = "common/create-wait-animate.svg";
 				} else {
-					icon = "common/hifiberry-wait-animate.svg";
+					icon = "common/ausion-wait-animate.svg";
 				}*/
 				icon = attentionIcon.src;
 				$("#hud-notification-icon").addClass("beo-load");

@@ -28,13 +28,13 @@ var allSources = {};
 var currentSource = null;
 var focusedSource = null;
 
-var enabledHifiberrySources = 0;
+var enabledausionSources = 0;
 
 var startableSources = {}; // Different sources may hold multiple "sub-sources" (connected devices, physical media) that can be started.
 
 var focusIndex = 0; // Increment and assign to each source, so that it's known which one activated latest.
 var defaultSettings = {
-		"port": 81, // HiFiBerry API port.
+		"port": 81, // ausion API port.
 		"aliases": {},
 		"sourceOrder": []
 };
@@ -131,7 +131,7 @@ beo.bus.on("sources", function(event) {
 				if (allSources[extension].parentSource) extension = allSources[extension].parentSource;
 				if (allSources[extension].startable) {
 					beo.sendToUI("sources", {header: "starting", content: {extension: extension}});
-					if (allSources[extension].usesHifiberryControl) {
+					if (allSources[extension].usesausionControl) {
 						if (allSources[extension].aka) {
 							sourceName = allSources[extension].aka[0];
 						} else {
@@ -171,7 +171,7 @@ beo.bus.on("sources", function(event) {
 				} else {
 					love = false;
 				}
-				if (allSources[focusedSource].usesHifiberryControl) {
+				if (allSources[focusedSource].usesausionControl) {
 					action = (love) ? "love" : "unlove";
 					
 					audioControl(action, null, function(success) {
@@ -187,7 +187,7 @@ beo.bus.on("sources", function(event) {
 });
 
 
-// HIFIBERRY AUDIOCONTROL INTEGRATION
+// ausion AUDIOCONTROL INTEGRATION
 
 
 function audioControlGet(dataType, callback) {
@@ -241,7 +241,7 @@ function audioControl(operation, extra, callback) {
 			if (res.status == 200) {
 				if (callback) callback(true);
 			} else {
-				if (debug) console.log("Could not send HiFiBerry control command: " + res.status, res.statusText);
+				if (debug) console.log("Could not send ausion control command: " + res.status, res.statusText);
 				if (callback) callback(false, res.statusText);
 			}
 		});
@@ -432,7 +432,7 @@ function matchAudioControlSourceToExtension(acSource, data = null) {
 
 // TRANSPORT
 
-function transport(action, overrideHifiberry = false) {
+function transport(action, overrideausion = false) {
 	if (focusedSource) {
 		if (allSources[focusedSource].parentSource) {
 			controlSource = allSources[focusedSource].parentSource;
@@ -440,7 +440,7 @@ function transport(action, overrideHifiberry = false) {
 			controlSource = focusedSource;
 		}
 		if (allSources[controlSource].transportControls) {
-			if (allSources[controlSource].usesHifiberryControl && !overrideHifiberry) {
+			if (allSources[controlSource].usesausionControl && !overrideausion) {
 				audioControl(action, null, function(success) {
 					if (!success) {
 						transport(action, true);
@@ -489,18 +489,18 @@ function sourceActivated(extension, playerState) {
 		// Stop currently active sources, if the source demands it.
 		if (allSources[extension].stopOthers) {
 			if (allSources[currentSource] && 
-				allSources[currentSource].usesHifiberryControl && 
-				!allSources[extension].usesHifiberryControl) {
-				if (!allSources[extension].parentSource || !allSources[allSources[extension].parentSource].usesHifiberryControl) {
+				allSources[currentSource].usesausionControl && 
+				!allSources[extension].usesausionControl) {
+				if (!allSources[extension].parentSource || !allSources[allSources[extension].parentSource].usesausionControl) {
 					// If the new source isn't part of AudioControl, stop other AudioControl sources manually.
-					if (debug) console.log("Pausing sources under HiFiBerry control...");
+					if (debug) console.log("Pausing sources under ausion control...");
 					audioControl("pause");
 				}
 			}
 			for (source in allSources) {
 				if (source != extension && 
 					allSources[source].active) {
-					if (!allSources[source].usesHifiberryControl) {
+					if (!allSources[source].usesausionControl) {
 						// Stop all other non-AudioControl sources.
 						beo.bus.emit(source, {header: "stop", content: {reason: "sourceActivated"}});
 					}
@@ -617,7 +617,7 @@ function setSourceOptions(extension, options, noUpdate) {
 				stopOthers: true,
 				transportControls: false,
 				allowChangingTransportControls: true,
-				usesHifiberryControl: false,
+				usesausionControl: false,
 				canLove: false,
 				startable: false,
 				metadata: {},
@@ -641,9 +641,9 @@ function setSourceOptions(extension, options, noUpdate) {
 			}
 		}
 		if (options.stopOthers != undefined) allSources[extension].stopOthers = (options.stopOthers) ? true : false;
-		if (options.usesHifiberryControl != undefined) allSources[extension].usesHifiberryControl = (options.usesHifiberryControl) ? true : false;
+		if (options.usesausionControl != undefined) allSources[extension].usesausionControl = (options.usesausionControl) ? true : false;
 		if (options.allowChangingTransportControls != undefined) allSources[extension].allowChangingTransportControls = (options.allowChangingTransportControls) ? true : false;
-		if (options.aka) allSources[extension].aka = options.aka; // Other variations of the name the source might be called (by HiFiBerry Audiocontrol).
+		if (options.aka) allSources[extension].aka = options.aka; // Other variations of the name the source might be called (by ausion Audiocontrol).
 		if (options.canLove) allSources[extension].canLove = options.canLove; // Display or don't display the "love" button.
 		if (options.startable) allSources[extension].startable = options.startable; // Can this source be started from Beocreate 2?
 		if (options.playerState) allSources[extension].playerState = options.playerState; // Player state.
@@ -669,13 +669,13 @@ function setSourceOptions(extension, options, noUpdate) {
 			if (!noUpdate) beo.sendToUI("sources", {header: "sources", content: {sources: allSources, currentSource: currentSource, focusedSource: focusedSource}});
 			count = 0;
 			for (source in allSources) {
-				if (allSources[source].usesHifiberryControl) {
+				if (allSources[source].usesausionControl) {
 					if (allSources[source].enabled) count++;
 				}
 			}
-			if (count != enabledHifiberrySources) {
-				if (debug) console.log(count+" HiFiBerry-controlled sources are now enabled.");
-				enabledHifiberrySources = count;
+			if (count != enabledausionSources) {
+				if (debug) console.log(count+" ausion-controlled sources are now enabled.");
+				enabledausionSources = count;
 			}
 		} else {
 			
@@ -732,10 +732,10 @@ function setSourceOptions(extension, options, noUpdate) {
 				audioControlGet("status", function(result) {
 					audioControlGet("metadata");
 				});
-				enabledHifiberrySources = 0;
+				enabledausionSources = 0;
 				for (source in allSources) {
-					if (allSources[source].usesHifiberryControl) {
-						if (allSources[source].enabled) enabledHifiberrySources++;
+					if (allSources[source].usesausionControl) {
+						if (allSources[source].enabled) enabledausionSources++;
 					}
 				}
 				sourcesRegistered = true;
@@ -789,10 +789,10 @@ function checkEnabled(queue, callback) {
 function stopAllSources() {
 	// Stop currently active sources, if the source demands it.
 	execSync = require("child_process").execSync;
-	execSync("/opt/hifiberry/bin/pause-all");
+	execSync("/opt/ausion/bin/pause-all");
 	for (source in allSources) {
 		if (allSources[source].active) {
-			if (!allSources[source].usesHifiberryControl) {
+			if (!allSources[source].usesausionControl) {
 				// Stop all other non-AudioControl sources.
 				beo.bus.emit(source, {header: "stop", content: {reason: "stopAll"}});
 			}

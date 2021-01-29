@@ -79,7 +79,7 @@ function setALSAEq(hz, percent) {
 	timeLastUsed = Date.now() - lastUsed;
 	if (timeLastUsed > 10000) {
 		try {
-			beo.extensions["hifiberry-debug"].reportUsage(usagePrefix,1);
+			beo.extensions["ausion-debug"].reportUsage(usagePrefix,1);
 		} catch (error) {
 			console.error("Exception reporting usage: ", error);
 		}
@@ -101,7 +101,7 @@ function readALSAEq(hz) {
 }
 
 function checkEnabled() {
-	exec('/opt/hifiberry/bin/alsa-mode', function(error, stdout, stderr) {
+	exec('/opt/ausion/bin/alsa-mode', function(error, stdout, stderr) {
 		if (error) {
 			console.log("error checking ALSAEq status",error);
 		} else {
@@ -123,14 +123,14 @@ function enableEq(enabled) {
 		mode = "SOFTVOL";
 	}
 	
-	exec('/opt/hifiberry/bin/alsa-mode '+mode, function(error, stdout, stderr) {
+	exec('/opt/ausion/bin/alsa-mode '+mode, function(error, stdout, stderr) {
 		if (error) {
 			console.log("error enabling/disabling alsaeq",error);
 			return false;
 		}
 	});
 	try {
-		beo.extensions["hifiberry-debug"].reportActivation(usagePrefix,enabled);
+		beo.extensions["ausion-debug"].reportActivation(usagePrefix,enabled);
 	} catch (error) {
 		console.error("Exception reporting usage: ", error);
 	}

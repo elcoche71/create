@@ -1,7 +1,7 @@
 {
   "name": "@beocreate/alsaloop",
   "version": "0.5.0",
-  "description": "Control for HiFiBerry ALSA loop in Beocreate systems",
+  "description": "Control for ausion ALSA loop in Beocreate systems",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,7 +13,7 @@
   "keywords": [
     "beocreate",
     "alsaloop",
-	"hifiberry"
+	"ausion"
   ],
   "author": "Bang & Olufsen",
   "license": "MIT",

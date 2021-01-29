@@ -33,7 +33,7 @@ var fs = require("fs");
 		
 		if (event.header == "startup") {
 			
-			if (beo.extensions["hifiberry-audiocontrol"]) audioControl = beo.extensions["hifiberry-audiocontrol"];
+			if (beo.extensions["ausion-audiocontrol"]) audioControl = beo.extensions["ausion-audiocontrol"];
 			
 			if (audioControl) {
 				configuration = audioControl.getSettings();

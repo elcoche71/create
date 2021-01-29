@@ -32,12 +32,12 @@ var fs = require("fs");
 	var systemProductIdentityDirectory = beo.systemDirectory+"/beo-product-identities"; // Product identities directory.
 	
 	
-	var hifiberryOS = (beo.systemConfiguration.cardType && beo.systemConfiguration.cardType.indexOf("Beocreate") == -1) ? true : false;
+	var ausionOS = (beo.systemConfiguration.cardType && beo.systemConfiguration.cardType.indexOf("Beocreate") == -1) ? true : false;
 	var genericProductImage = "";
-	if (!hifiberryOS) {
+	if (!ausionOS) {
 		genericProductImage = "/common/beocreate-generic.png";
 	} else {
-		genericProductImage = "/common/hifiberry-generic.png";
+		genericProductImage = "/common/ausion-generic.png";
 	}
 	
 	var version = require("./package.json").version;
@@ -47,7 +47,7 @@ var fs = require("fs");
 	var systemID = null;
 	var systemName = {ui: null, static: null};
 	var systemVersion = null;
-	var hifiberryVersion = null;
+	var ausionVersion = null;
 	var systemNameSent = false;
 	
 	var defaultSettings = {
@@ -58,10 +58,10 @@ var fs = require("fs");
 		"systemNameApprovedByUser": false
 	};
 
-	if (hifiberryOS) {
+	if (ausionOS) {
 		defaultSettings = {
-			"modelID": "hifiberry", 
-			"modelName": "HiFiBerry",
+			"modelID": "ausion", 
+			"modelName": "ausion",
 			"productImage": false,
 			"bonjourEnabled": false,
 			"systemNameApprovedByUser": false,
@@ -88,8 +88,8 @@ var fs = require("fs");
 			systemVersion = event.content.systemVersion;
 			systemVersionReadable = event.content.systemVersionReadable;
 			
-			if (fs.existsSync("/etc/hifiberry.version")) {
-				hifiberryVersion = fs.readFileSync("/etc/hifiberry.version", "utf8");
+			if (fs.existsSync("/etc/ausion.version")) {
+				ausionVersion = fs.readFileSync("/etc/ausion.version", "utf8");
 			}
 			
 			updateProductIdentities();
@@ -105,14 +105,14 @@ var fs = require("fs");
 					// Wait for the system name before starting services.
 					
 					if (!err) systemName = response;
-					if (!systemName.ui || (systemName.ui == "HiFiBerry" && !hifiberryOS && !settings.systemNameApprovedByUser)) {
-						// If the UI name is not defined, assume this is a first-run scenario and give the system a default name. Alternatively, if this is a Beocreate system, it's called "HiFiBerry" but this name has not been user-approved, rename to Beocreate and ask for a new name during setup.
+					if (!systemName.ui || (systemName.ui == "ausion" && !ausionOS && !settings.systemNameApprovedByUser)) {
+						// If the UI name is not defined, assume this is a first-run scenario and give the system a default name. Alternatively, if this is a Beocreate system, it's called "ausion" but this name has not been user-approved, rename to Beocreate and ask for a new name during setup.
 						if (!systemID) systemID = "new";
-						if (!hifiberryOS) {
+						if (!ausionOS) {
 							//newName = "Beocreate-"+systemID.replace(/^0+/, '');
 							newName = "Beocreate";
 						} else {
-							newName = "HiFiBerry";
+							newName = "ausion";
 						}
 						piSystem.setHostname(newName, function(success, response) {
 							if (extensions["setup"] && extensions["setup"].joinSetupFlow) {
@@ -133,7 +133,7 @@ var fs = require("fs");
 							}
 						});
 					} else {
-						if ((systemName.ui == "HiFiBerry" || systemName.ui == "Beocreate") &&
+						if ((systemName.ui == "ausion" || systemName.ui == "Beocreate") &&
 							!settings.systemNameApprovedByUser &&
 							extensions["setup"] && 
 							extensions["setup"].joinSetupFlow) {
@@ -203,7 +203,7 @@ var fs = require("fs");
 		
 		if (event.header == "getBasicProductInformation") {
 			if (systemName.ui) {
-				beo.bus.emit("ui", {target: "product-information", header: "basicProductInformation", content: {systemName: systemName.ui, staticName: systemName.static, systemVersion: systemVersion, hifiberryVersion: hifiberryVersion, systemID: systemID, hifiberryOS: hifiberryOS, systemConfiguration: beo.systemConfiguration}});
+				beo.bus.emit("ui", {target: "product-information", header: "basicProductInformation", content: {systemName: systemName.ui, staticName: systemName.static, systemVersion: systemVersion, ausionVersion: ausionVersion, systemID: systemID, ausionOS: ausionOS, systemConfiguration: beo.systemConfiguration}});
 				systemNameSent = true;
 			}
 		}
@@ -394,7 +394,7 @@ var fs = require("fs");
 			imageName = image.substring(image.lastIndexOf('/') + 1);
 			if (linkedProductImages.indexOf(imageName) == -1) {
 				fauxModelID = image.slice(0, image.indexOf(".png"));
-				fauxModelName = (!hifiberryOS) ? "Beocreate" : "HiFiBerry"; 
+				fauxModelName = (!ausionOS) ? "Beocreate" : "ausion"; 
 				if (debug) console.log("Adding faux product identity: "+fauxModelID+".");
 				fauxIdentity = {
 					modelID: fauxModelID,
@@ -508,8 +508,8 @@ var fs = require("fs");
 		}
 		if (imageName == "beocreate-generic.png") {
 			return ["/common/beocreate-generic.png", "/common/beocreate-generic.png"];
-		} else if (imageName == "hifiberry-generic.png") {
-			return ["/common/hifiberry-generic.png", "/common/hifiberry-generic.png"];
+		} else if (imageName == "ausion-generic.png") {
+			return ["/common/ausion-generic.png", "/common/ausion-generic.png"];
 		} else if (imageName) {
 			if (imageName.indexOf(".png") == -1) imageName += ".png";
 			if (allProductImages[imageName]) {

@@ -15,7 +15,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
-// HIFIBERRY SOFTWARE UPDATE FOR BEOCREATE
+// ausion SOFTWARE UPDATE FOR BEOCREATE
 
 var exec = require("child_process").exec;
 var spawn = require("child_process").spawn;
@@ -112,7 +112,7 @@ beo.bus.on('software-update', function(event) {
 	
 	if (event.header == "restorePreviousVersion") {
 		beo.sendToUI("software-update", {header: "restoringPreviousVersion", content: {stage: "start"}});
-		exec("/opt/hifiberry/bin/reactivate-previous-release", function(error, stdout, stderr) {
+		exec("/opt/ausion/bin/reactivate-previous-release", function(error, stdout, stderr) {
 			if (stdout) {
 				if (stdout.indexOf("No previous release") != -1) {
 					beo.sendToUI("software-update", {header: "restoringPreviousVersion", content: {stage: "fail", reason: "notFound"}});
@@ -135,7 +135,7 @@ function checkForUpdate(forceCheck) {
 	checkTime = new Date().getTime();
 	updateTrack = (settings.manualUpdateTrack) ? settings.manualUpdateTrack : ((autoUpdate != false || autoUpdate != "critical") ? autoUpdate : "latest");
 	if (checkTime - lastChecked > 300000 || forceCheck) {
-		exec("/opt/hifiberry/bin/update --"+updateTrack+" --check", function(error, stdout, stderr) {
+		exec("/opt/ausion/bin/update --"+updateTrack+" --check", function(error, stdout, stderr) {
 			lastChecked = checkTime;
 			updateLines = stdout.trim().split("\n");
 			newVersion = updateLines[0];
@@ -179,10 +179,10 @@ function installUpdate() {
 		updateTrack = (settings.manualUpdateTrack) ? settings.manualUpdateTrack : ((autoUpdate != false || autoUpdate != "critical") ? autoUpdate : "latest");
 		/*if (beo.developerMode) {
 			if (debug) console.log("Starting software update simulation.");
-			updateProcess = spawn("/opt/hifiberry/bin/update", ["--simulate", "--"+updateTrack]);
+			updateProcess = spawn("/opt/ausion/bin/update", ["--simulate", "--"+updateTrack]);
 		} else {*/
 			if (debug) console.log("Starting software update.");
-			updateProcess = spawn("/opt/hifiberry/bin/update", ["--"+updateTrack]);
+			updateProcess = spawn("/opt/ausion/bin/update", ["--"+updateTrack]);
 		//}
 		
 		updateProcess.stdout.on('data', function (data) {
@@ -320,8 +320,8 @@ function checkForPreviousVersion() {
 	if (!previousVersionChecked) {
 		if (fs.existsSync("/boot/zImage.bak")) {
 			previousVersion = true;
-			if (fs.existsSync("/etc/hifiberry.version.previous")) {
-				previousVersion = fs.readFileSync("/etc/hifiberry.version.previous", "utf8").trim();
+			if (fs.existsSync("/etc/ausion.version.previous")) {
+				previousVersion = fs.readFileSync("/etc/ausion.version.previous", "utf8").trim();
 			}
 		} else {
 			previousVersion = false;

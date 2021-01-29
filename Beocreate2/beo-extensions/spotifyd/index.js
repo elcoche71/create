@@ -47,7 +47,7 @@ var fs = require("fs");
 					sources.setSourceOptions("spotifyd", {
 						enabled: enabled,
 						transportControls: true,
-						usesHifiberryControl: true,
+						usesausionControl: true,
 						aka: "spotify"
 					});
 				});

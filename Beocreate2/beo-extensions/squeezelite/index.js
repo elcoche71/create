@@ -49,7 +49,7 @@ beo.bus.on('general', function(event) {
 					enabled: enabled,
 					aka: ["lms"],
 					transportControls: true,
-					usesHifiberryControl: true
+					usesausionControl: true
 				});
 			});
 		}

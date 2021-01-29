@@ -94,8 +94,8 @@ function setHostname(productName, callback) {
 											if (hostsFile[i].indexOf(names.static) != -1) {
 												hostsFile[i] = hostsFile[i].replace(names.static, staticName);
 											}
-											if (hostsFile[i].indexOf("hifiberry") != -1) {
-												hostsFile[i] = hostsFile[i].replace("hifiberry", staticName);
+											if (hostsFile[i].indexOf("ausion") != -1) {
+												hostsFile[i] = hostsFile[i].replace("ausion", staticName);
 											}
 										}
 										hostsText = hostsFile.join("\n");

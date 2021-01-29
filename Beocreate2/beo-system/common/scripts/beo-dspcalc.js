@@ -15,7 +15,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
-// Volume conversion functions ported from HiFiBerry DSP: https://github.com/hifiberry/hifiberry-dsp/
+// Volume conversion functions ported from ausion DSP: https://github.com/ausion/ausion-dsp/
 
 
 // FILTER CALCULATION FUNCTIONS

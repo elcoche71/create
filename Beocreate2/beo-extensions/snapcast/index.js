@@ -49,7 +49,7 @@ var fs = require("fs");
 					sources.setSourceOptions("snapcast", {
 						enabled: enabled,
 						transportControls: false,
-						usesHifiberryControl: true
+						usesausionControl: true
 					});
 				});
 			}
